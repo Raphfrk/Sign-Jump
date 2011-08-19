@@ -25,6 +25,8 @@ public class SignJump extends JavaPlugin {
 		
 		sm = SpoutManager.getInstance();
 		
+		getCommand("signjump").setExecutor(new SetTargetCommand(this));
+		
 		getServer().getPluginManager().registerEvent(Type.PLAYER_INTERACT, playerListener, Priority.Normal, this);
 		
 		getServer().getLogger().info("Sign Jump Enabled");

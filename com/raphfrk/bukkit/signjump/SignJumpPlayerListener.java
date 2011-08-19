@@ -27,8 +27,14 @@ public class SignJumpPlayerListener extends PlayerListener {
 		Block block = event.getClickedBlock();
 		Material type = event.getMaterial();
 
+		setSignTarget(block, null, type, player, p);
+
+	}
+
+
+	public static void setSignTarget(Block block, String longHostname, Material type, Player player, SignJump p) {
 		if (block.getType().equals(Material.SIGN) || block.getType().equals(Material.SIGN_POST)) {
-			if (type != null && type.getId() == p.trigger && player.isOp()) {
+			if (type == null || (type.getId() == p.trigger && player.isOp())) {
 				String destination = (String)((SpoutBlock)block).getData("com.raphfrk.signjump.destination");
 				if (destination != null) {
 					((SpoutBlock)block).removeData("com.raphfrk.signjump.destination");
@@ -36,6 +42,9 @@ public class SignJumpPlayerListener extends PlayerListener {
 				} else {
 					Sign sign = (Sign)block.getState();
 					String hostname = sign.getLine(1);
+					if (longHostname != null) {
+						hostname = longHostname;
+					}
 					if (hostname.contains(":")) {
 						player.sendMessage("[SignJump] Unable to enable link, hostname may not contain : symbol");
 						return;
@@ -76,6 +85,8 @@ public class SignJumpPlayerListener extends PlayerListener {
 					}
 				}
 			}
+		} else if (longHostname != null) {
+			player.sendMessage("[SignJump] target is not a sign");
 		}
 	}
 
