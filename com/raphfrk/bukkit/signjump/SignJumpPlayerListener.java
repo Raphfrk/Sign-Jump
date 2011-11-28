@@ -33,7 +33,7 @@ public class SignJumpPlayerListener extends PlayerListener {
 
 
 	public static void setSignTarget(Block block, String longHostname, Material type, Player player, SignJump p) {
-		if (block.getType().equals(Material.SIGN) || block.getType().equals(Material.SIGN_POST)) {
+		if (block.getType().equals(Material.WALL_SIGN) || block.getType().equals(Material.SIGN_POST)) {
 			if (type == null || (type.getId() == p.trigger && player.isOp())) {
 				String destination = (String)((SpoutBlock)block).getData("com.raphfrk.signjump.destination");
 				if (destination != null) {
